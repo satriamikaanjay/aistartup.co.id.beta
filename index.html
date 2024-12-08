@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI STARTUP</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        background-color: #000;
+        color: white;
+        font-family: 'Roboto Condensed', sans-serif;
+        margin-top: 100px; /* Memberikan ruang tambahan di atas agar konten tidak terhalang navbar */
+      }
+
+      .menu-box {
+    border: 2px solid #ffffff91; /* Warna dan ketebalan border */
+    border-radius: 50px; /* Membuat sudut melengkung */
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: #f8f9fa00; /* Warna latar dalam box */
+    display: inline-block; /* Agar hanya selebar isi */
+  }
+
+  .navbar {
+    position: fixed; /* Navbar tetap di atas layar */
+  top: 0; /* Menempel di bagian atas */
+  left: 0; /* Menempel di sisi kiri */
+  width: 100%; /* Lebar navbar sama dengan layar */
+  background-color: #000000; /* Warna background navbar */
+  padding: 15px;
+  text-align: center;
+  z-index: 100; /* Navbar berada di depan elemen lain */
+  border-bottom: 2px solid #a5a5a577; /* Border bawah abu-abu */
+      }
+
+  .navbar-collapse {
+    display: flex;
+    justify-content: center; /* Untuk memposisikan menu di tengah */
+  }
+
+  .navbar-nav {
+    margin: 0; /* Hilangkan margin bawaan */
+    padding: 0; /* Hilangkan padding bawaan */
+    list-style: none; /* Hilangkan bullet points */
+    display: flex; /* Tata letak horizontal */
+    gap: 15px; /* Jarak antar item menu */
+  }
+
+  .navbar-brand {
+    transform: translateX(600%);
+  }
+
+  .navbar-nav .nav-link {
+    text-decoration: none; /* Hilangkan underline */
+    color: #6d6d6d; /* Warna teks */
+    padding: 5px 10px; /* Ruang dalam item menu */
+    border-radius: 30px; /* Sedikit lengkungan pada item */
+  }
+  
+      .btn-join-waitlist {
+        background-color: #8C45FF;
+        color: white;
+        border-radius: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        font-size: 13px;
+        transform: translateX(-250%);
+      }
+
+      .btn-join-waitlist:hover {
+        background-color: #500c87;
+      }
+
+      .image-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 85px;
+        transform: translateY(30px);
+            animation: fadeIn 2s forwards;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+      .text-container {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        text-align: center;
+        margin-top: 190px;
+        color: white;
+        letter-spacing: 2px;
+      }
+
+      .text-container img {
+        width: 45%;
+        height: auto;
+        margin-bottom: 0px;
+      }
+
+      .text-container h1 {
+        font-size: 65px;
+        font-weight: bold;
+        line-height: 1.5;
+        margin-top: 0px;
+      }
+
+      .text-container button {
+        margin-top: 20px;
+        font-size: 13px;
+      }
+
+      .gradient-text {
+        background: linear-gradient(to top, #B372CF, #FFFFFF);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .image-back {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+
+      .image-front {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+      }
+
+      .bg {
+        margin-top: 300px;
+        z-index: 5;
+      }
+
+      .overlay {
+        position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 800px; /* Batasi tinggi overlay agar sesuai dengan bagian gambar */
+  transform: translateY(45%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.9)); /* Gradient tetap ada */
+  z-index: 8; /* Tetap di bawah elemen lainnya */
+}
+      .content-below {
+  position: relative; /* Agar z-index berfungsi */
+  z-index: 20; /* Pastikan berada di atas overlay */
+  background-color: black; /* Latar belakang hitam */
+  color: #cccccc; /* Warna teks putih */
+  padding: 20px; /* Tambahkan ruang dalam */
+  text-align: center; /* Pusatkan teks */
+  border-radius: 10px; /* Sudut membulat */
+  margin: 0px; /* Tambahkan jarak untuk jarak antar elemen */
+  max-width: 100%; /* Batasi lebar maksimal */
+  height: 300px;
+  font-size: 20px;
+  padding-top: 50px;
+  opacity: 0;
+  margin-bottom: 150px;
+  transform: translateY(50px);
+    transition: opacity 1s ease, transform 2s ease;
+}
+
+.content-below.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+.content-below img{
+  padding: 2px;
+  
+}
+
+.content-below p{
+  margin-bottom: 50px;
+}
+
+.dropdown-menu {
+  background-color: #000; /* Warna latar belakang dropdown hitam */
+  color: white; /* Warna teks putih */
+  border-radius: 8px; /* Membuat sudut dropdown membulat */
+}
+
+.dropdown-item {
+  color: white; /* Warna teks item dropdown */
+}
+
+.dropdown-item:hover {
+  background-color: #acacac; /* Warna saat hover */
+}
+
+.main {
+  text-align: center;
+  margin-top: 200px;
+  margin-bottom: 100px;
+  opacity: 0;
+  transform: translateY(50px);
+    transition: opacity 2s ease, transform 2s ease;
+}
+
+.main.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.main h1{
+  margin-bottom: 50px;
+}
+
+.main-1 {
+  background: linear-gradient(to bottom right, #190D2E, #020103); /* Gradien dari kiri atas ke kanan bawah */
+  color: white; /* Warna teks putih untuk kontras */
+  padding: 50px; /* Ruang dalam untuk memberikan jarak di sekitar teks */
+  text-align: left; /* Teks di tengah */
+  border-radius: 1px; /* Sudut membulat untuk estetika */
+  letter-spacing: 1px;
+  padding-left: 100px;
+  opacity: 0;
+  transform: translateY(50px);
+    transition: opacity 1s ease, transform 2s ease;
+}
+
+.main-1.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.main-1 h1{
+  font-size: 50px;
+  letter-spacing: 3px;
+  margin-bottom: 80px;
+}
+
+.main-2{
+  background-color: black; /* Mengatur latar belakang menjadi hitam */
+  color: white; /* Mengatur warna teks menjadi putih agar kontras */
+  padding: 20px; /* Menambahkan ruang di dalam div */
+  text-align: center; /* Memusatkan teks di dalam div */
+  padding-top: 100px;
+  position: relative; /* Menjadikan div ini sebagai referensi untuk posisi elemen-elemen lainnya */
+  margin-bottom: 150px;
+  opacity: 0;
+  transform: translateY(50px);
+    transition: opacity 1s ease, transform 2s ease;
+}
+
+.main-2.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.main-2 img {
+  max-width: 100%; /* Membuat gambar responsif */
+  display: flex;
+}
+
+.main-2 .avatar {
+  position: relative; /* Posisi gambar avatar relatif */
+  z-index: 2; /* Membuat gambar avatar berada di atas */
+}
+
+.main-2 .ellipse {
+  position: absolute; /* Posisi gambar ellipse absolute terhadap parent (main-2) */
+  top: 80%; /* Menempatkan ellipse di tengah */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Menyeimbangkan posisi dengan menggeser setengah dari lebar dan tinggi gambar */
+  z-index: 1; /* Membuat ellipse berada di bawah avatar */
+}
+
+.main-2 h1{
+  margin-bottom: 40px;
+  font-size: 60px;
+}
+
+.main-2 p{
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+
+.img-1{
+  z-index: 2;
+}
+
+.img-2{
+  z-index: 4;
+}
+
+.p {
+  display: flex; /* Menggunakan Flexbox untuk menata elemen secara horizontal */
+  align-items: center; /* Menjaga gambar dan teks berada pada garis tengah secara vertikal */
+  justify-content: center; /* Menjaga gambar dan teks berada di sisi kanan */
+  gap: 20px; /* Memberikan jarak antar gambar dan teks */
+  text-align: left; /* Teks rata kanan */
+  position: relative;
+}
+
+.p .avatar {
+  position: relative;
+  z-index: 2; /* Avatar tetap di atas */
+}
+
+.p .ellipse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-75%, -50%);
+  z-index: 1; /* Ellipse di bawah avatar */
+}
+
+.ket {
+  margin-bottom: 150px;
+}
+
+.pricing {
+            position: relative;
+            text-align: left;
+            color: white;
+            padding: 50px 20px;
+            letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(50px);
+    transition: opacity 1s ease, transform 2s ease;
+}
+
+.pricing.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+        
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            object-fit: cover;
+            filter: blur(8px);
+            z-index: -1; /* Keep the image in the background */
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.315); /* semi-transparent background */
+            color: white;
+            border-radius: 10px;
+        }
+
+        .btn-custom {
+            background-color: #3D3D3D;
+            color: white;
+            width: 100%;
+            margin-top: 100px;
+        }
+
+        .btn-custom-2 {
+            background-color: #3D3D3D;
+            color: white;
+            width: 100%;
+            margin-top: 330px;
+        }
+
+        .btn-custom-2:hover {
+            background-color: #8C45FF;
+        }
+
+        .btn-custom-1 {
+            background-color: #8C45FF;
+            color: white;
+            width: 100%;
+            margin-top: 210px;
+        }
+
+        .btn-custom:hover {
+            background-color: #8C45FF;
+        }
+
+        .btn-custom-1:hover {
+            background-color: #ffffff;
+            color: black;
+        }
+
+        .card-teks{
+          font-size: 15px;
+          margin-bottom: 30px;
+        }
+
+        .pro {
+    background: linear-gradient(to top, #8c45ff2a, rgb(0, 0, 0));
+    background-position: center; /* Pusatkan gambar */
+}
+
+.box {
+  width: 300px;
+}
+
+.end {
+  background: linear-gradient(#8c45ff2a, rgb(0, 0, 0));
+  backdrop-filter: blur;
+  border-radius: 10px;
+  border: 1px solid rgb(59, 59, 59);
+  width: 100%;
+  height: 300px;
+  padding-top: 50px;
+  letter-spacing: 1px;
+}
+
+.transparent-input {
+    background-color: rgba(255, 255, 255, 0); /* Transparan dengan sedikit putih */
+    border: 1px solid rgba(255, 255, 255, 0.6); /* Border putih semi-transparan */
+    color: #fff; /* Teks putih */
+    border-radius: 5px; /* Opsional: sudut membulat */
+}
+
+.transparent-input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.transparent-input:hover {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.white-button {
+    background-color: #ffffff; /* Warna putih */
+    color: #000; /* Teks hitam */
+    border: 1px solid #ccc; /* Opsional: border abu-abu */
+    border-radius: 5px; /* Opsional: sudut membulat */
+}
+
+.white-button:hover {
+    color: #000;
+    background-color: #f1f1f1; /* Sedikit abu-abu pada hover */
+    border-color: #aaa; /* Border lebih gelap */
+}
+
+.text{
+  color: #6d6d6d;
+}
+
+.d-flex.align-items-center {
+  margin-left: auto; /* Toggler dan button di sebelah kanan */
+}
+@media (max-width: 768px) {
+
+  @media (max-width: 768px) {
+
+.menu-box {
+  display: none; /* Default: disembunyikan */
+  position: absolute;
+  top: 60px; /* Di bawah navbar */
+  right: 0;
+  background-color: #000; /* Warna latar menu */
+  width: 100%; /* Penuh untuk layar kecil */
+  padding: 1rem;
+  z-index: 1050;
+}
+
+.menu-box.show {
+  display: block; /* Tampilkan menu ketika diaktifkan */
+}
+
+.navbar-brand {
+  flex: none; /* Tidak dipengaruhi oleh layout Flexbox */
+  transform: translateX(20%);
+}
+
+.navbar-toggler {
+  border: 1px solid #ccc; /* Tambahkan border di tombol toggler */
+  color: #fff;
+  margin-left: auto; /* Toggler di kanan */
+  z-index: 1050; /* Pastikan toggler berada di atas menu */
+}
+
+.btn-join-waitlist {
+  transform: translateX(4%);
+}
+
+.text-container h1 {
+  font-size: 40px;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.0;
+}
+
+.text-container button {
+  font-size: 10px;
+}
+
+.bg {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+}}
+
+.footer {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.footer.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.container {
+  opacity: 0;
+  transform: translateY(50px);
+    transition: opacity 1s ease, transform 2s ease;
+}
+
+.container.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="#">
+          <img src="Logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top img">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse mx-auto" id="navbarNav">
+         
+          
+          <div class="menu-box">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Features
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Developers</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Company
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Changelog</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <a href="#" class="btn btn-join-waitlist">Join Waitlist</a>
+      </div>
+    </nav>
+
+    <div class="image-container">
+      <div class="text-container">
+        <img src="M.png">
+        <h1>Boost your<span class="gradient-text"> <br> rankings with AI.</span> </h1>
+        <button type="button" class="btn btn-light">Start for free</button>
+      </div>
+      
+      <img src="App.png" class="bg">
+      <img src="blur2.png" alt="Gambar Belakang" class="image-back" />
+      <img src="blur.png" alt="Gambar Depan" class="image-front" />
+    </div>
+
+    <div class="overlay"></div> <!-- Overlay Gradient -->
+
+    <div class="content-below">
+      <p>Trusted by the world’s most innovative teams</p>
+      <div class="column">
+        <img src="Box.png" alt="">
+        <img src="Box1.png" alt="">
+        <img src="Box2.png" alt="">
+        <img src="Box3.png" alt="">
+      </div>
+      <div class="column">
+        <img src="Box4.png" alt="">
+        <img src="Box5.png" alt="">
+        <img src="Box6.png" alt="">
+        <img src="Box7.png" alt="">
+      </div>
+    </div>
+
+    <div class="main">
+      <h1>Harness the power of AI, making <br> search engine optimization intuitive <br> and effective for all skill levels.</h1>
+      <div class="column img animate-right">
+        <img src="SEO.png" alt="">
+        <img src="User Friendly.png" alt="">
+      </div>
+      <div class="column img animate-left">
+        <img src="Visual reports.png" alt="">
+        <img src="Smart Generator.png" alt="">
+      </div>
+    </div>
+
+    <div class="main-1">
+      <h1>Elevate your <br> SEO efforts.</h1>
+      <div class="row">
+        <div class="col-md-4">
+          <p><img src="gauge 1.png" alt=""> User-friendly dashboard</p>
+          <p>Perform complex SEO audits and <br> optimizations with a single click.</p>
+          <br>
+          <p><img src="list-checks 1.png" alt=""> Content evaluation</p>
+          <p>Simple corrections for immediate <br> improvements.</p>
+          <br>
+          <p><img src="magic-wand 1.png" alt=""> Link Optimization Wizard</p>
+          <p>Guides you through the process <br> of creating and managing links.</p>
+        </div>
+        <div class="col-md-4">
+          <p><img src="chart-line 1.png" alt=""> Visual reports</p>
+          <p>Visual insights into your site’s <br> performance.</p>
+          <br>
+          <p><img src="target 1.png" alt=""> SEO goal setting</p>
+          <p>Helps you set and achieve SEO goals with <br> guided assistance.</p>
+          <br>
+          <p><img src="cursor-click 1.png" alt=""> One-click optimization</p>
+          <p>Perform complex SEO audits and <br> optimizations with a single click.</p>
+        </div>
+        <div class="col-md-4">
+          <p><img src="sparkle 1.png" alt=""> Smart Keyword Generator</p>
+          <p>Automatic suggestions and the best <br> keywords to target.</p>
+          <br>
+          <p><img src="bell-ringing 1.png" alt=""> Automated alerts</p>
+          <p>Automatic notifications about your SEO <br> health, including quick fixes.</p>
+          <br>
+          <p><img src="files 1.png" alt=""> Competitor reports</p>
+          <p>Provides insights into competitors’ <br> keyword strategies and ranking.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-2">
+      <h1>Our clients</h1>
+      <p class="ket">Hear firsthand how our solutions have <br> boosted online success for users like you.</p>
+      <div class="p">
+        <img src="Avatar@3x 1.png" alt="" class="avatar">
+        <img src="Ellipse 7.png" alt="" class="ellipse">
+        <div class="name">
+          <p>”This product has completely <br> transformed how I manage my <br> projects and deadlines”</p>
+          <p style="font-size: 20px;">Talia Taylor</p>
+          <p style="font-size: 15px; color: #929292;">Digital Marketing Director @ Quantum</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing">
+      <h1 class="text-center" style="font-size: 60px;">Pricing</h1>
+      <p class="text-center mt-5" style="font-size: 30px;">Choose the right plan to meet your SEO <br> needs and start optimizing today.</p>
+      <img src="blur.png" alt="Background" class="background-image">
+
+      <div class="container mt-5">
+          <div class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                  <div class="card-body">
+                      <h2 class="card-title">Pricing</h>
+                      <p class="card-text h4">$29/months</p>
+                      <hr>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Keyword optimization</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Automated meta tags</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> SEO monitoring</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Monthly reports</p>
+                      <a href="#" class="btn btn-custom-2">Join waitlist</a>
+                  </div>
+              </div>
+          </div>
+              <!-- Pro Plan -->
+              <div class="col-md-4 mb-4">
+                  <div class="card">
+                      <div class="card-body pro">
+                          <h2 class="card-title">Pro</h2>
+                          <p class="card-text h4">$79/months</p>
+                          <hr>
+                          <p class="card-teks"><img src="Icons.png" alt=""> Keyword optimization</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Automated meta tags</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> SEO monitoring</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Monthly reports</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Content suggestions</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Link optimization</p>
+                          <a href="#" class="btn btn-custom-1">Join waitlist</a>
+                          
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Business Plan -->
+              <div class="col-md-4 mb-4">
+                  <div class="card">
+                      <div class="card-body">
+                          <h2 class="card-title">Business</h2>
+                          <p class="card-text h4">$149/months</p>
+                          <hr>
+                          <p class="card-teks"><img src="Icons.png" alt=""> Keyword optimization</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Automated meta tags</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> SEO monitoring</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Monthly reports</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Content suggestions</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Link optimization</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> Multi-user access</p>
+                      <p class="card-teks"><img src="Icons.png" alt=""> API integration</p>
+                          <a href="#" class="btn btn-custom">Join waitlist</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="container mb-5 text-white">
+  <div class="end text-center">
+    <h1>AI-driven SEO <br> for everyone.</h1>
+    <input class="py-1 me-2 transparent-input " type="search" placeholder="Search" aria-label="Search">
+    <button class="py-1 btn white-button" type="submit">Join waitlist</button>
+    <p class="pt-4">No credit card required · 7-days free trial</p>
+  </div>
+</div>
+
+<div class="container text-white">
+  <footer class="row row-cols-5 py-5 my-5 border-top footer">
+    <div class="col">
+      <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+        <img src="logokit 1.png" alt="">
+      </a>
+    </div>
+
+    <div class="col">
+
+    </div>
+
+    <div class="col">
+
+    </div>
+
+    <div class="col-md-1">
+      <h5 class="mb-4">Product</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Features</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Integration</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Updates</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">FAQ</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Pricing</a></li>
+      </ul>
+    </div>
+
+    <div class="col-md-1">
+      <h5 class="mb-4">Company</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">About</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Blog</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Careers</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Manifesto</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Press</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Contract</a></li>
+      </ul>
+    </div>
+
+    <div class="col-md-1">
+      <h5 class="mb-4">Resources</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Examples</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Community</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Guides</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Docs</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Press</a></li>
+      </ul>
+    </div>
+
+    <div class="col-md-1">
+      <h5 class="mb-4">Resources</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Privacy</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Terms</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text">Security</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+      
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>document.addEventListener("DOMContentLoaded", () => {
+      const elements = document.querySelectorAll(".pricing, .main, .footer, .main-1, .content-below, .main-2, .container"); // Semua elemen yang ingin dianimasikan
+  
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add("animate");
+                  observer.unobserve(entry.target); // Hentikan observasi jika animasi sudah dijalankan
+              }
+          });
+      });
+  
+      elements.forEach(element => {
+          observer.observe(element);
+      });
+  });</script>
+  </body>
+</html>
